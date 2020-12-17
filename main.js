@@ -1,6 +1,10 @@
 (function () {
     const $ = q => document.querySelector(q);//se eu quiser posso usar o $ para nao ter que escrever o document.queryselector//
 
+    function converPeriod(mil){
+        const min = Math.floor(mil / 60000);
+        const sec = Math.floor((mil % 60000)/1000);
+    }
 function renderGarage () {           // vai renderizar os carros//
     const garage = getGarage();
 
@@ -16,7 +20,7 @@ function addCarToGarage(car) {
     row.innerHTML = ` 
         <td>${car.name}</td> 
         <td>${car.licence}</td>
-        <td>${new Date(car.time)
+        <td data-time="${car.time}">${new Date(car.time)
                     .toLocaleString("pt-BR", {
                         hour: "numeric", minute: "numeric" // Deixa horario no modo brasil e customizado//
                      })}</td>
@@ -29,6 +33,14 @@ function addCarToGarage(car) {
 
     document.querySelector("#garage").appendChild(row);
     };
+
+    function checkOut(info){ // as informações do veiculo são array em que o 0 veiculo 1 placa 2 horario 3 ação //
+        const period = new Date()- new Date(info[2].dataset.time);    //vai pegar o periodo em que o veiculo ficou// O new date vai deixar no padrão de hroas que precisa//
+        const licence = info[1].textContent;
+
+        console.log(period)
+
+    }
 
 
     const getGarage =() =>localStorage.garage ? JSON.parse(localStorage.garage) : [];   //uma função com arow function para não ter qur ficar escrevendo o mesmo codigo toda hora//// se não existir ele vai trazer um array vazio siginifica que não há nenhum carro no patio // aqui é um ternario ele vai procurar garage se não existir ele vai criar um novo e vai retornalo com um json vai transformar um objeto em uma string um texto. no local storage ele le texto o parse e para depois usar no java script ele precisa voltar a ser um objeto//
@@ -60,7 +72,7 @@ function addCarToGarage(car) {
     });  
     
    $("#garage").addEventListener("click", e => {    // vai mapear o item que esta sendo escolhido para deletar e vai deletalo//
-        console.log(e.target.parentElement.parentElement);        //parente element vai buscar o elemento paarente pai se acresentar maus um ele vai buscar o parente do parente//
-    })
-                                            
+     if(e.target.className == "delete")   
+    checkOut(e.target.parentElement.parentElement.cells);        //parente element vai buscar o elemento paarente pai se acresentar maus um ele vai buscar o parente do parente//
+    });
 })();
