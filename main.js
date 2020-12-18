@@ -4,6 +4,8 @@
     function converPeriod(mil){
         const min = Math.floor(mil / 60000);
         const sec = Math.floor((mil % 60000)/1000);
+
+        return `${min}m e ${sec}`;
     }
 function renderGarage () {           // vai renderizar os carros//
     const garage = getGarage();
@@ -35,9 +37,11 @@ function addCarToGarage(car) {
     };
 
     function checkOut(info){ // as informações do veiculo são array em que o 0 veiculo 1 placa 2 horario 3 ação //
-        const period = new Date()- new Date(info[2].dataset.time);    //vai pegar o periodo em que o veiculo ficou// O new date vai deixar no padrão de hroas que precisa//
-        const licence = info[1].textContent;
+        let period = new Date()- new Date(info[2].dataset.time);    //vai pegar o periodo em que o veiculo ficou// O new date vai deixar no padrão de hroas que precisa//
+        period = convertPeriod(period);
 
+        const licence = info[1].textContent;
+        const msg = `O veículo ${info[0].textcontent} de placa ${licence} permanceu estacionado por ${period}`
         console.log(period)
 
     }
