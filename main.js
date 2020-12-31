@@ -5,13 +5,13 @@
         const min = Math.floor(mil / 60000);
         const sec = Math.floor((mil % 60000)/1000);
 
-        return `${min}m e ${sec}`;
-    }
+        return `${min}m e ${sec}s`;
+    };
 function renderGarage () {           // vai renderizar os carros//
     const garage = getGarage();
-    $("garage").innerHTML = "";
+    $("#garage").innerHTML = "";
     garage.forEach(c => addCarToGarage(c)) //A cada carro na garagem ele vai chamar esta função e vai enviar o carro que chegou aqui para ele, enviar cada carro para o row//
-}
+};
 
 
 
@@ -41,7 +41,7 @@ function addCarToGarage(car) {
         period = convertPeriod(period); // COnverte o perido de milisegundos para segundos//
 
         const licence = info[1].textContent;
-        const msg = `O veículo ${info[0].textcontent} de placa ${licence} permanceu estacionado por ${period}           
+        const msg = `O veículo ${info[0].textContent} de placa ${licence} permanceu estacionado por ${period}           
         Deseja encerrar ?`; // Vai dizer o tempo em que o veiculo permaneceu estacionado//
         
         if(!confirm(msg)) return; // retorna a menssagem se realmente vai querer excluir o veiculo do patio //
@@ -67,15 +67,15 @@ function addCarToGarage(car) {
             return;
         }
 
-        const car = {name, licence, time: new Date() }// newDatevai trazer a hora real do cadastro//
+        const card = {name, licence, time: new Date() }// newDatevai trazer a hora real do cadastro//
 
         const garage = getGarage();// se não existir ele vai trazer um array vazio siginifica que não há nenhum carro no patio // aqui é um ternario ele vai procurar garage se não existir ele vai criar um novo e vai retornalo com um json vai transformar um objeto em uma string um texto. no local storage ele le texto o parse e para depois usar no java script ele precisa voltar a ser um objeto//
-        garage.push(car); //pushar o objeto car e por dentro da garagem//
+        garage.push(card); //pushar o objeto car e por dentro da garagem//
         
         localStorage.garage = JSON.stringify(garage); // vai salvar o objeto como texto jason no storage ou banco de dados.
         //console.log(garage);//
 
-        addCarToGarage(car); // Aqui é chamada a função para aparecer os nomes preenchidos no leyout//
+        addCarToGarage(card); // Aqui é chamada a função para aparecer os nomes preenchidos no leyout//
 
         document.querySelector("#name").value = "";
         document.querySelector("#licence").value = "";  //vai apagar no campo de cadastro apos clicar no registrar////com a vareavel dentro da função ela não fica exposta para o usuario no console do navegador////o usuario só terá acesso pelo html//
