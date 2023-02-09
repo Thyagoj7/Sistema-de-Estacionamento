@@ -15,6 +15,8 @@ function renderGarage () {           // vai renderizar os carros//
 
 
 
+
+
 function addCarToGarage(car) {
     const row = document.createElement("tr");// este tr é o mesmo que isso <tr></tr> no html
 
@@ -40,9 +42,23 @@ function addCarToGarage(car) {
         let period = new Date()- new Date(info[2].dataset.time);   //O new date ja vai converter a data //vai pegar o periodo em que o veiculo ficou// O new date vai deixar no padrão de hroas que precisa//
         period = convertPeriod(period); // COnverte o perido de milisegundos para segundos//
 
+        //Tentando fazer valor da cobrança passar pelo if
+        console.log(period);
+        let valor = 1;
+
+        if(period <= 1) {
+            valor = 1;
+        }else if(period > 1) {
+            valor = 1 * period - 60;
+        }else{
+             valor = 2;
+        }
+
+        console.log(valor);
+
         const licence = info[1].textContent;
         const msg = `O veículo ${info[0].textContent} de placa ${licence} permanceu estacionado por ${period}           
-        Deseja encerrar ?`; // Vai dizer o tempo em que o veiculo permaneceu estacionado//
+        Deseja encerrar ? Valor a pagar ${valor}`; // Vai dizer o tempo em que o veiculo permaneceu estacionado//
         
         if(!confirm(msg)) return; // retorna a menssagem se realmente vai querer excluir o veiculo do patio //
         
